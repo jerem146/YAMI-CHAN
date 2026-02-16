@@ -15,42 +15,42 @@ function generateUniqueFilename(mime) {
   return `${id}.${ext}`
 }
 
-async function uploadToStellar(buffer, mime, token) {
+async function uploadToCatbox(buffer, mime) {
   const form = new FormData()
-  form.append('file', buffer, { filename: generateUniqueFilename(mime) })
-  const res = await axios.post(`${APIs.stellar.url}/api/cdn/upload`, form, {
-    headers: {
-      ...form.getHeaders(),
-      'x-upload-token': token
-    },
+  form.append('reqtype', 'fileupload')
+  form.append('fileToUpload', buffer, { filename: generateUniqueFilename(mime) })
+
+  const res = await axios.post('https://catbox.moe/user/api.php', form, {
+    headers: form.getHeaders(),
     maxContentLength: Infinity,
     maxBodyLength: Infinity
   })
-  if (!res.data?.url) throw new Error('Respuesta inválida del CDN')
-  return res.data.url
+
+  if (!res.data || typeof res.data !== 'string' || !res.data.startsWith('https://')) {
+    throw new Error('Respuesta inválida de Catbox')
+  }
+  return res.data.trim()
 }
 
 export default {
   command: ['tourl'],
   category: 'utils',
   run: async (client, m, args, usedprefix, command, text) => {
-
     const q = m.quoted || m
     const mime = (q.msg || q).mimetype || ''
     if (!mime) {
       return client.reply(
         m.chat,
-        `《✧》 Por favor, responde a una imagen o video con el comando *${usedPrefix + command}* para convertirlo en una URL.`,
+        `《✧》 Por favor, responde a una imagen o video con el comando *${usedprefix + command}* para convertirlo en una URL.`,
         m
       )
     }
 
     try {
       const media = await q.download()
-      const token = `${APIs.stellar.key2}`
-      const link = await uploadToStellar(media, mime, token)
+      const link = await uploadToCatbox(media, mime)
       const userName = global.db.data.users[m.sender]?.name || 'Usuario'
-      const upload = `✎ *Upload To Stellar*\n\nׅ✿ *Link ›* ${link}\nׅ✿ *Peso ›* ${formatBytes(media.length)}\nׅ✿ *Solicitado por ›* ${userName}\n\n${dev}`
+      const upload = `✎ *Upload To Catbox*\n\nׅ✿ *Link ›* ${link}\nׅ✿ *Peso ›* ${formatBytes(media.length)}\nׅ✿ *Solicitado por ›* ${userName}\n\n${dev}`
       await client.reply(m.chat, upload, m)
     } catch (e) {
       await m.reply('《✧》 Fail')
