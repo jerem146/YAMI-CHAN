@@ -12,8 +12,8 @@ global.links = {
 api: 'https://api.stellarwa.xyz',
 web: 'http://localhost:5010',
 channel: "https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n",
-github: "https://github.com/The-King-Destroy/YukiBot-MD",
-gmail: "thekingdestroy507@gmail.com"
+github: "",
+gmail: ""
 }
 global.my = {
 ch: '120363424209556447@newsletter',
