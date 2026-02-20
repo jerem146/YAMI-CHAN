@@ -91,7 +91,7 @@ export default {
               },
               externalAdReply: {
                 title: botname,
-                body: `${namebot}, mᥲძᥱ ᥕі𝗍һ ᑲᥡ ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜`,
+                body: `${namebot}, Yami tu diosa UWU🥰🥺`,
                 showAdAttribution: false,
                 thumbnailUrl: banner,
                 mediaType: 1,
