@@ -18,7 +18,7 @@ export default {
     }
     const botname = global.db.data.settings[botId]?.botname || 'Bot'
     const username = global.db.data.users[m.sender].name || 'usuario'
-    const basePrompt = `Tu nombre es ${botname} y parece haber sido creada por ⁱᵃᵐ|𝔇ĕ𝐬†𝓻⊙γ𒆜. Tu versión actual es ${version}, Tú usas el idioma Español. Llamarás a las personas por su nombre ${username}, te gusta ser divertida, y te encanta aprender. Lo más importante es que debes ser amigable con la persona con la que estás hablando. ${username}`
+    const basePrompt = `Tu nombre es ${botname} y parece haber sido creada por YAMI 💗. Tu versión actual es ${version}, Tú usas el idioma Español. Llamarás a las personas por su nombre ${username}, te gusta ser divertida, y te encanta aprender. Lo más importante es que debes ser amigable con la persona con la que estás hablando. ${username}`
     try {
       const { key } = await client.sendMessage(m.chat, { text: `ꕥ *ChatGPT* está procesando tu respuesta...` }, { quoted: m })
       await m.react('🕒')
